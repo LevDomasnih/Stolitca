@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <link rel="stylesheet" href="main.css">
+   <title>Столица</title>
+</head>
+
+<body>
+   <div id="main-section">
+      <div id="trapezoid1"></div>
+      <div id="trapezoid2"></div>
+      <div id="main-section-content">
+         <div id="top-menu">
+            <a href="#"><img src="img/logo_stolica_white.png"></a>
+            <ul class="top-menu-link">
+               <li><a href="#"><img src="img/Group 595.svg"></a></li>
+               <li><a href="#">Магазины</a></li>
+               <li><a href="#">Где поесть</a></li>
+               <li><a href="#">Развлечения</a></li>
+               <li><a href="#">Новости</a></li>
+               <li><a href="#">О столице</a></li>
+            </ul>
+            <ul class="top-menu-address">
+               <li>
+                  <p href="#">Пермь, ул. Мира 41/1</p>
+               </li>
+               <li>
+                  <p href="#">с 10:00 до 21:00</p>
+               </li>
+            </ul>
+         </div>
+         <div id="slider-control">
+            <ul id="control">
+               <li><a href="#" id="prevEl"><img src="img/sec2/Group 600.svg" onclick="minus()"></a></li>
+               <li><a href="#" id="nextEl"><img src="img/sec2/Group 599.svg" onclick="plus()"></a></li>
+            </ul>
+         </div>
+         <div id="slider-text">
+            <p>Весенняя <br> распродажа</p>
+            <a href="#" id="st-button"><span>ПОДРОБНЕЕ</span></a>
+         </div>
+         <div id="slider-num"><span>01 / 06</span></div>
+         <div id="slider-image">
+            <div class="si-item three" onclick="q = 0; backgroundChange()"></div>
+            <div class="si-item two" onclick="q = 1; backgroundChange()"></div>
+            <div class="si-item one" onclick="q = 2; backgroundChange()"></div>
+         </div>
+      </div>
+   </div>
+
+   <div id="partners-section">
+      <div class="container ps-wrapper">
+         <div id="carousel" class="carousel ">
+            <button class="arrow prev"><img src="img/sec2/Group 600.svg"></button>
+            <div class="gallery">
+               <ul class="images">
+                  <li><img src="img/sec2/sportmaster.png"></li>
+                  <li><img src="img/sec2/semya.png"></li>
+                  <li><img src="img/sec2/terranova.png"></li>
+                  <li><img src="img/sec2/Безымянный-1.png"></li>
+                  <li><img src="img/sec2/mvideo.png"></li>
+                  <li><img src="img/sec2/restore.png"></li>
+                  <li><img src="img/sec2/terranova.png"></li>
+                  <li><img src="img/sec2/Безымянный-1.png"></li>
+                  <li><img src="img/sec2/mvideo.png"></li>
+                  <li><img src="img/sec2/restore.png"></li>
+               </ul>
+            </div>
+            <button class="arrow next"><img src="img/sec2/Group 599.svg"></button>
+         </div>
+      </div>
+      
+   </div>
+
+   <div id="shares-section">
+      
+   </div>
+
+   <div id="feedback-section">
+      <div id="feedback-content">
+         <div class="fc-item"><span>Арендаторам</span><img src="img/sec4/businessman.svg"></div>
+         <div class="fc-item"><span>Рекламодателям</span><img src="img/sec4/graphic.svg"></div>
+         <div class="fc-item"><span>Собственникам</span><img src="img/sec4/Group 1543.svg"></div>
+         <div class="fc-item"><span>Контакты</span><img src="img/sec4/leader.svg"></div>
+      </div>
+   </div>
+
+   <footer id="footer-section" class="ff"></footer>
+
+   <script src="js/main.js"></script>
+</body>
+
+</html>
