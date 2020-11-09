@@ -3,16 +3,21 @@ const trapezoid1 = document.querySelector('#trapezoid1');
 const trapezoid2 = document.querySelector('#trapezoid2');
 const feedbackContent = document.querySelector('#feedback-content');
 const sIItem = document.querySelector('.si-item');
+const sliderImage = document.querySelector('#slider-image');
+const sliderNum = document.querySelector('#slider-num');
+const control = document.querySelector('#control');
 
 
 let list = carousel.querySelector('ul');
 let listElems = carousel.querySelectorAll('li');
 let currentElem = null;
 let i = 1;
-let q = 0;
+let numOfSlide = 1;
 let width = 130; // ширина картинки
 let count = 6; // видимое количество изображений
 let position = 0; // положение ленты прокрутки
+let classActive = null;
+let arrayClassActive = [];
 
 
 for (let li of carousel.querySelectorAll('li')) {
@@ -38,7 +43,6 @@ carousel.querySelector('.next').onclick = function () {
     list.style.marginLeft = position + 'px';
 };
 
-
 feedbackContent.onmouseover = function (event) {
     if (currentElem) return;
     let target = event.target.closest('.fc-item');
@@ -51,7 +55,6 @@ feedbackContent.onmouseover = function (event) {
     target.style.bottom = '5px'
     target.style.boxShadow = '9px 20px 10px rgba(0,0,0,0.5)';
 };
-
 
 feedbackContent.onmouseout = function (event) {
     if (!currentElem) return;
@@ -68,43 +71,54 @@ feedbackContent.onmouseout = function (event) {
     currentElem = null;
 };
 
+function imageShow() {
+    let arr = []
+    let items = document.querySelectorAll('.si-item')
+    items.forEach(item => arr.push(item));
+    let active = arr[numOfSlide - 2];
+    active.classList.add('active');
+    arrayClassActive.push(active);
+}
 
-function plus() {
-    if(q<2){
-        q++;
+function sliderNumSpan() {
+    if (sliderNum.firstElementChild !== null) {
+        sliderNum.firstElementChild.remove()
     }
-    backgroundChange();
-};
+    let text = `0${numOfSlide} / 06`;
+    let span = document.createElement('span');
+    span.append(text);
+    sliderNum.append(span);
+}
 
+sliderImage.addEventListener('click', (e) => {
+    let target = e.target.closest('.si-item');
+    if (!target) return;
+    if (!e.target.classList.contains('one')) return;
 
-function minus() {
-    if(q>0){
-        q--;
+    numOfSlide += 1
+    classActive = e.target;
+    arrayClassActive.push(classActive);
+    classActive.classList.add('active');
+    classActive.style.zIndex = -100 + numOfSlide;
+
+    sliderNumSpan();
+})
+
+control.addEventListener('click', (e) => {
+    let target = e.target.closest('a');
+    if (!target) return;
+
+    if (target.id == 'prevEl' && numOfSlide > 1) {
+        let item = arrayClassActive.pop();
+        item.classList.remove('active')
+        numOfSlide -= 1;
     }
-    backgroundChange();
-};
+    
+    if (target.id == 'nextEl' && numOfSlide < 6) numOfSlide += 1;
+
+    sliderNumSpan();
+    imageShow();
+})
 
 
-function backgroundChange() {
-    switch(q) {
-        case 0:  
-            backgroundImg.style.backgroundImage = 'url(img/3940649684099510_3232.png)';
-            trapezoid1.style.visibility = 'visible';
-            trapezoid2.style.visibility = 'visible';
-            break;
-
-        case 1:
-            backgroundImg.style.backgroundImage = 'url(img/57ebbe2b19bae@2x.png)';
-            trapezoid1.style.visibility = 'hidden';
-            trapezoid2.style.visibility = 'hidden';
-            break;
-
-        case 2:
-            backgroundImg.style.backgroundImage = 'url(img/009-1-231116.png)';
-            trapezoid1.style.visibility = 'hidden';
-            trapezoid2.style.visibility = 'hidden';
-            break;
-        default:
-        break;
-    }
-};
+sliderNumSpan();

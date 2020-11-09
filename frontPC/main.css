@@ -11,6 +11,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    z-index: -2;
 }
 
 #trapezoid1 {
@@ -28,14 +29,17 @@ body {
 #main-section-content {
     margin: auto;
     position: absolute;
-    top: 52px;
+    top: 0;
     left: 0;
     right: 0;
+    height: 960px;
+    z-index: 8;
 }
 
 #top-menu {
     width: 1170px;
     margin: auto;
+    padding-top: 52px;
 }
 
 .top-menu-link {
@@ -92,24 +96,6 @@ body {
     color: white;
 }
 
-/* .circle
-    {
-    width:49px;
-    height:49px;
-    border-radius:50%;
-    font-size:2px;
-    color:#fff;
-    line-height:50px;
-    text-align:center;
-    background:#000
-    }
-
-
-.circle p {
-    font-size: 30px;
-} */
-
-
 #slider-text {
     height: 300px;
     width: 1170px;
@@ -151,26 +137,91 @@ body {
 }
 
 #slider-image {
-    /* background-color: rgb(80, 80, 87); */
     width: 568px;
     margin-right: 0;
     margin-left: auto;
     height: 100px;
     margin-top: 48px;
     font-size: 0;
+    overflow: hidden;
 }
 
 .si-item {
     display: inline-block;
-    /* background-color: bisque; */
     width: 171px;
     height: 100px;
     margin-left: 18px;
-    float: right;
+    float: left;
+    transition: 0.25s all cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.active {
+    position: absolute;
+    /* top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100% !important;
+    width: 100% !important; */
+    z-index: -2;
+    margin-left: 0 !important;
+    animation: lol 3s linear 1 forwards;
+}
+
+
+/* 
+    ПОЧИНИТЬ!!!!!!
+*/
+
+@keyframes lol {
+    0% {
+        height:  100px;
+        width:  171px;
+    }
+    5% {
+        height: 200px;
+        width: 342px;
+    }
+    25%{
+        bottom: 25%;
+        right: 25%;
+        height: 25% ; 
+        width: 25% ;
+    }
+    100%{
+        /* bottom: 50%; */
+        /* right: 50%; */
+        height: 100% ; 
+        width: 100% ;
+    }
+    75%{
+        bottom: 25%;
+        right: 25%;
+        height: 100% ; 
+        width: 100% ;
+    }
+    100%{
+        /* top: 0;
+        left: 0;
+        bottom: 0; 
+        right: 0;  */
+        bottom: 0%;
+        right: 0%;
+        height: 100%; 
+        width: 100%;
+    }
+}
+
+.five {
+    background-color: rgb(67, 0, 155);
+}
+
+.four {
+    background-image: url(img/3940649684099510_3232.png);
 }
 
 .three {
-    background-color: rgb(67, 236, 0);
+    background-color: rgb(244, 248, 9);
 }
 
 .two {
@@ -253,7 +304,6 @@ button {
     display: inline-block;
     margin: 0 37px 0 37px;
 }
-
 /* end partners-section */
 /* start shares-section */
 #shares-section {
@@ -290,7 +340,6 @@ button {
     padding-left: 24px;
     margin-top: 0;
 }
-
 /* end shares-section */
 /* start feedback-section */
 #feedback-section {
@@ -328,12 +377,10 @@ button {
     float: right;
     margin-top: 62px;
 }
-
 /* end feedback-section */
 /* start footer-section */
 #footer-section {
     height: 348px;
     background-color: #DBDBDB;
 }
-
 /* end footer-section */
