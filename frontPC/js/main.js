@@ -3,75 +3,54 @@ const trapezoid1 = document.querySelector('#trapezoid1');
 const trapezoid2 = document.querySelector('#trapezoid2');
 const feedbackContent = document.querySelector('#feedback-content');
 const sIItem = document.querySelector('.si-item');
+const stButton = document.querySelector('#st-button');
 const sliderImage = document.querySelector('#slider-image');
 const sliderNum = document.querySelector('#slider-num');
 const control = document.querySelector('#control');
+const carousel = document.querySelector('#carousel');
+const prevPartners = carousel.querySelector('.prev');
+const nextPartners = carousel.querySelector('.next');
+const list = carousel.querySelector('ul');
+const listElems = carousel.querySelectorAll('li');
+const gallery = document.querySelector('.gallery');
+const prevShare = document.querySelector('.prev-share');
+const nextShare = document.querySelector('.next-share');
+const shares = document.querySelector('.shares');
+const lengthShare = shares.querySelectorAll('li').length;
+const capsule = document.querySelector('.capsule');
 
 
-let list = carousel.querySelector('ul');
-let listElems = carousel.querySelectorAll('li');
 let currentElem = null;
-let i = 1;
-let numOfSlide = 1;
-let width = 130; // ширина картинки
-let count = 6; // видимое количество изображений
-let position = 0; // положение ленты прокрутки
+let numOfSlide = 1; // номер нынешенго слайда на первом блоке
+let position = 0; // положение ленты прокрутки в партнерах
 let classActive = null;
-let arrayClassActive = [];
+let positionShare = 0; // положение ленты прокрутки в акциях
+let lastShareElOnDisplay = 4; // номер крайне правого элемента 
 
 
-for (let li of carousel.querySelectorAll('li')) {
-    li.style.position = 'relative';
-    li.insertAdjacentHTML('beforeend', `<span style="position:absolute;left:0;top:0">${i}</span>`);
-    i++;
+const countElem = 6; // видимое количество изображений
+const arrayClassActive = [];
+const widthOfGallery = gallery.clientWidth;
+
+
+const carouselOfPartners = (count = 6) => {
+    const arr = [];
+    listElems.forEach((el) => arr.push(el));
+    while (arr != 0) {
+        let width = 0;
+        let countItem = arr.splice(0, count);
+        countItem.forEach((el) => {
+            width += el.clientWidth;
+            width += 74;
+        });
+
+        let padLeftAndRight = ((widthOfGallery - width) / 2) + 37;
+        countItem[0].style.marginLeft = padLeftAndRight + 'px';
+        countItem[countItem.length - 1].style.marginRight = padLeftAndRight + 'px';
+    }
 }
 
-/* конфигурация */
-carousel.querySelector('.prev').onclick = function () {
-    // сдвиг влево
-    position += width * count;
-    // последнее передвижение влево может быть не на 3, а на 2 или 1 элемент
-    position = Math.min(position, 0)
-    list.style.marginLeft = position + 'px';
-};
-
-carousel.querySelector('.next').onclick = function () {
-    // сдвиг вправо
-    position -= width * count;
-    // последнее передвижение вправо может быть не на 3, а на 2 или 1 элемент
-    position = Math.max(position, -width * (listElems.length - count));
-    list.style.marginLeft = position + 'px';
-};
-
-feedbackContent.onmouseover = function (event) {
-    if (currentElem) return;
-    let target = event.target.closest('.fc-item');
-    if (!target) return;
-    if (!feedbackContent.contains(target)) return;
-
-    currentElem = target;
-    target.style.background = 'pink';
-    target.style.position = 'relative'
-    target.style.bottom = '5px'
-    target.style.boxShadow = '9px 20px 10px rgba(0,0,0,0.5)';
-};
-
-feedbackContent.onmouseout = function (event) {
-    if (!currentElem) return;
-    let relatedTarget = event.relatedTarget;
-    while (relatedTarget) {
-        if (relatedTarget == currentElem) return;
-        relatedTarget = relatedTarget.parentNode;
-    }
-
-    currentElem.style.background = '';
-    currentElem.style.position = '';
-    currentElem.style.bottom = '';
-    currentElem.style.boxShadow = '';
-    currentElem = null;
-};
-
-function imageShow() {
+const imageShow = () => {
     let arr = []
     let items = document.querySelectorAll('.si-item')
     items.forEach(item => arr.push(item));
@@ -80,7 +59,7 @@ function imageShow() {
     arrayClassActive.push(active);
 }
 
-function sliderNumSpan() {
+const sliderNumSpan = () => {
     if (sliderNum.firstElementChild !== null) {
         sliderNum.firstElementChild.remove()
     }
@@ -90,6 +69,16 @@ function sliderNumSpan() {
     sliderNum.append(span);
 }
 
+stButton.addEventListener('mouseover', () => {
+    stButton.style.backgroundColor = '#fff';
+    stButton.querySelector('span').style.color = 'red';
+})
+
+stButton.addEventListener('mouseout', () => {
+    stButton.style.backgroundColor = '';
+    stButton.querySelector('span').style.color = '';
+})
+// наложение картинок 1 блок
 sliderImage.addEventListener('click', (e) => {
     let target = e.target.closest('.si-item');
     if (!target) return;
@@ -103,7 +92,7 @@ sliderImage.addEventListener('click', (e) => {
 
     sliderNumSpan();
 })
-
+// управление 1 блок
 control.addEventListener('click', (e) => {
     let target = e.target.closest('a');
     if (!target) return;
@@ -113,12 +102,80 @@ control.addEventListener('click', (e) => {
         item.classList.remove('active')
         numOfSlide -= 1;
     }
-    
+
     if (target.id == 'nextEl' && numOfSlide < 6) numOfSlide += 1;
 
     sliderNumSpan();
     imageShow();
 })
+// сдвиг вправо
+nextShare.addEventListener('click', () => {
+    if (lastShareElOnDisplay == lengthShare) return;
+    lastShareElOnDisplay += 1;
+    positionShare -= 295;
+    shares.style.marginLeft = positionShare + 'px';
+})
+// сдвиг влево
+prevShare.addEventListener('click', () => {
+    if (lastShareElOnDisplay == 4) return;
+    lastShareElOnDisplay -= 1;
+    positionShare += 295;
+    shares.style.marginLeft = positionShare + 'px';
+})
+// сдвиг влево
+prevPartners.addEventListener('click', () => {
+    position += widthOfGallery;
+    position = Math.min(position, 0)
+    list.style.marginLeft = position + 'px';
+})
+// сдвиг вправо
+nextPartners.addEventListener('click', () => {
+    if (list.style.marginLeft === `${(-widthOfGallery * Math.floor(listElems.length / countElem))}px`) return;
+    position -= widthOfGallery;
+    list.style.marginLeft = position + 'px';
+})
+// наведение
+feedbackContent.addEventListener('mouseover', (event) => {
+    if (currentElem) return;
+    let target = event.target.closest('.fc-item');
+    if (!target) return;
+    if (!feedbackContent.contains(target)) return;
+
+    currentElem = target;
+    target.style.background = 'pink';
+    target.style.position = 'relative'
+    target.style.bottom = '5px'
+    target.style.boxShadow = '9px 20px 10px rgba(0,0,0,0.5)';
+})
+// отпуск 
+feedbackContent.addEventListener('mouseout', (event) => {
+    if (!currentElem) return;
+    let relatedTarget = event.relatedTarget;
+    while (relatedTarget) {
+        if (relatedTarget == currentElem) return;
+        relatedTarget = relatedTarget.parentNode;
+    }
+
+    currentElem.style.background = '';
+    currentElem.style.position = '';
+    currentElem.style.bottom = '';
+    currentElem.style.boxShadow = '';
+    currentElem = null;
+})
+// наведение
+capsule.addEventListener('mouseover', () => {
+    capsule.style.backgroundColor = 'red';
+    capsule.querySelector('p').style.color = 'white';
+})
+// отпуск
+capsule.addEventListener('mouseout', () => {
+    capsule.style.backgroundColor = '';
+    capsule.querySelector('p').style.color = '';
+})
 
 
-sliderNumSpan();
+const init = () => {
+    sliderNumSpan();
+    setTimeout(() => carouselOfPartners(countElem), 0);
+}
+init();
