@@ -16,6 +16,7 @@ body {
     height: 48px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.5) 4px 6px 6px;
+    transition: background-color 0.4s ease-in-out;
 }
 
 .vk img {
@@ -32,6 +33,7 @@ body {
     height: 48px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.5) 4px 6px 6px;
+    transition: background-color 0.4s ease-in-out;
 }
 
 .inst img {

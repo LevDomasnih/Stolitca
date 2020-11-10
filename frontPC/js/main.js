@@ -1,3 +1,5 @@
+const iconVk = document.querySelector('.vk');
+const iconInst = document.querySelector('.inst');
 const backgroundImg = document.querySelector('#main-section');
 const trapezoid1 = document.querySelector('#trapezoid1');
 const trapezoid2 = document.querySelector('#trapezoid2');
@@ -171,6 +173,22 @@ capsule.addEventListener('mouseover', () => {
 capsule.addEventListener('mouseout', () => {
     capsule.style.backgroundColor = '';
     capsule.querySelector('p').style.color = '';
+})
+
+iconVk.addEventListener('mouseover', () => {
+    iconVk.style.backgroundColor = '#c51d38';
+})
+
+iconVk.addEventListener('mouseout', () => {
+    iconVk.style.backgroundColor = '';
+})
+
+iconInst.addEventListener('mouseover', () => {
+    iconInst.style.backgroundColor = '#c51d38';
+})
+
+iconInst.addEventListener('mouseout', () => {
+    iconInst.style.backgroundColor = '';
 })
 
 
